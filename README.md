@@ -2,3 +2,5 @@
 Soshi lets you be more social, don't worry, it's easy
 
 [Check Out Documentation](https://drive.google.com/drive/folders/1-B3-4H3phJHao_QWJKSkqqyker4vBZC7?usp=sharing)
+
+![Design 1](https://user-images.githubusercontent.com/7444521/58354408-2ff5b680-7e26-11e9-8b4c-69c447f34d02.png)
