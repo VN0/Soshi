@@ -46,9 +46,9 @@ task checkstyle(type: Checkstyle, group: 'Verification', description: 'Runs code
     exclude '**/AppLogger.java'
     reports {
         xml.enabled = true
-        xml {
-            destination "$reportsDir/checkstyle/checkstyle.xml"
-        }
+//        xml {
+//            destination "$reportsDir/checkstyle/checkstyle.xml"
+//        }
     }
 
     classpath = files()
@@ -72,12 +72,12 @@ task findbugs(type: FindBugs,
     reports {
         xml.enabled = true
         html.enabled = false
-        xml {
-            destination "$reportsDir/findbugs/findbugs.xml"
-        }
-        html {
-            destination "$reportsDir/findbugs/findbugs.html"
-        }
+//        xml {
+//            destination "$reportsDir/findbugs/findbugs.xml"
+//        }
+//        html {
+//            destination "$reportsDir/findbugs/findbugs.html"
+//        }
     }
 
     classpath = files()
@@ -97,11 +97,11 @@ task pmd(type: Pmd, group: 'Verification', description: 'Inspect sourcecode for 
     reports {
         xml.enabled = true
         html.enabled = true
-        xml {
-            destination "$reportsDir/pmd/pmd.xml"
-        }
-        html {
-            destination "$reportsDir/pmd/pmd.html"
-        }
+//        xml {
+//            destination "$reportsDir/pmd/pmd.xml"
+//        }
+//        html {
+//            destination "$reportsDir/pmd/pmd.html"
+//        }
     }
 }

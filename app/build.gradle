@@ -16,6 +16,7 @@
 
 apply plugin: 'com.android.application'
 apply from: '../config/quality/quality.gradle'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -67,6 +68,7 @@ dependencies {
 
     // database
     implementation "androidx.room:room-rxjava2:$rootProject.roomDatabaseVersion"
+    implementation 'com.google.firebase:firebase-auth:16.0.5'
     annotationProcessor "androidx.room:room-compiler:$rootProject.roomDatabaseVersion"
 
     // font
