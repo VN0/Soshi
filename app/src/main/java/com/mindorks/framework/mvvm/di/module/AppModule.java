@@ -25,6 +25,8 @@ import com.mindorks.framework.mvvm.BuildConfig;
 import com.mindorks.framework.mvvm.R;
 import com.mindorks.framework.mvvm.data.AppDataManager;
 import com.mindorks.framework.mvvm.data.DataManager;
+import com.mindorks.framework.mvvm.data.firebase.AppUserHelper;
+import com.mindorks.framework.mvvm.data.firebase.UserHelper;
 import com.mindorks.framework.mvvm.data.local.db.AppDatabase;
 import com.mindorks.framework.mvvm.data.local.db.AppDbHelper;
 import com.mindorks.framework.mvvm.data.local.db.DbHelper;
@@ -33,9 +35,9 @@ import com.mindorks.framework.mvvm.data.local.prefs.PreferencesHelper;
 import com.mindorks.framework.mvvm.data.remote.ApiHeader;
 import com.mindorks.framework.mvvm.data.remote.ApiHelper;
 import com.mindorks.framework.mvvm.data.remote.AppApiHelper;
-import com.mindorks.framework.mvvm.di.ApiInfo;
-import com.mindorks.framework.mvvm.di.DatabaseInfo;
-import com.mindorks.framework.mvvm.di.PreferenceInfo;
+import com.mindorks.framework.mvvm.di.ApiInfoScope;
+import com.mindorks.framework.mvvm.di.DatabaseInfoScope;
+import com.mindorks.framework.mvvm.di.PreferenceInfoScope;
 import com.mindorks.framework.mvvm.utils.AppConstants;
 import com.mindorks.framework.mvvm.utils.rx.AppSchedulerProvider;
 import com.mindorks.framework.mvvm.utils.rx.SchedulerProvider;
@@ -57,14 +59,14 @@ public class AppModule {
     }
 
     @Provides
-    @ApiInfo
+    @ApiInfoScope
     String provideApiKey() {
         return BuildConfig.API_KEY;
     }
 
     @Provides
     @Singleton
-    AppDatabase provideAppDatabase(@DatabaseInfo String dbName, Context context) {
+    AppDatabase provideAppDatabase(@DatabaseInfoScope String dbName, Context context) {
         return Room.databaseBuilder(context, AppDatabase.class, dbName).fallbackToDestructiveMigration()
                 .build();
     }
@@ -91,7 +93,7 @@ public class AppModule {
     }
 
     @Provides
-    @DatabaseInfo
+    @DatabaseInfoScope
     String provideDatabaseName() {
         return AppConstants.DB_NAME;
     }
@@ -109,7 +111,7 @@ public class AppModule {
     }
 
     @Provides
-    @PreferenceInfo
+    @PreferenceInfoScope
     String providePreferenceName() {
         return AppConstants.PREF_NAME;
     }
@@ -122,7 +124,13 @@ public class AppModule {
 
     @Provides
     @Singleton
-    ApiHeader.ProtectedApiHeader provideProtectedApiHeader(@ApiInfo String apiKey,
+    UserHelper provideUserHelper(AppUserHelper appUserHelper) {
+        return appUserHelper;
+    }
+
+    @Provides
+    @Singleton
+    ApiHeader.ProtectedApiHeader provideProtectedApiHeader(@ApiInfoScope String apiKey,
                                                            PreferencesHelper preferencesHelper) {
         return new ApiHeader.ProtectedApiHeader(
                 apiKey,

@@ -28,12 +28,28 @@ public interface PreferencesHelper {
 
     void setAccessToken(String accessToken);
 
+    /**
+     * @deprecated
+     * @return
+     */
     String getCurrentUserEmail();
 
+    /**
+     * @deprecated
+     * @return
+     */
     void setCurrentUserEmail(String email);
 
+    /**
+     * @deprecated
+     * @return
+     */
     Long getCurrentUserId();
 
+    /**
+     * @deprecated
+     * @return
+     */
     void setCurrentUserId(Long userId);
 
     int getCurrentUserLoggedInMode();

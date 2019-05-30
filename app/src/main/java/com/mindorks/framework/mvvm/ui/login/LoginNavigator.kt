@@ -14,17 +14,23 @@
  *  limitations under the License
  */
 
-package com.mindorks.framework.mvvm.di;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import javax.inject.Qualifier;
+package com.mindorks.framework.mvvm.ui.login
 
 /**
- * Created by amitshekhar on 07/07/17.
+ * Created by amitshekhar on 08/07/17.
  */
-@Qualifier
-@Retention(RetentionPolicy.RUNTIME)
-public @interface PreferenceInfo {
 
+interface LoginNavigator {
+
+    fun handleError(throwable: Throwable)
+
+    fun handleError(error: String)
+
+    fun login()
+
+    fun createNewUserEmailPassword(email: String, password: String)
+
+    fun signInExistingUserEmailPassword(email: String, password: String)
+
+    fun openMainActivity()
 }

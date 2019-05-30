@@ -19,7 +19,7 @@ package com.mindorks.framework.mvvm.data.local.prefs;
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.mindorks.framework.mvvm.data.DataManager;
-import com.mindorks.framework.mvvm.di.PreferenceInfo;
+import com.mindorks.framework.mvvm.di.PreferenceInfoScope;
 import com.mindorks.framework.mvvm.utils.AppConstants;
 import javax.inject.Inject;
 
@@ -44,7 +44,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private final SharedPreferences mPrefs;
 
     @Inject
-    public AppPreferencesHelper(Context context, @PreferenceInfo String prefFileName) {
+    public AppPreferencesHelper(Context context, @PreferenceInfoScope String prefFileName) {
         mPrefs = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
     }
 

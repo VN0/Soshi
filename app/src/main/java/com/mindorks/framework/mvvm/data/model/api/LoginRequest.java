@@ -19,6 +19,8 @@ package com.mindorks.framework.mvvm.data.model.api;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 /**
  * Created by amitshekhar on 07/07/17.
  */
@@ -55,11 +57,10 @@ public final class LoginRequest {
 
             FacebookLoginRequest that = (FacebookLoginRequest) object;
 
-            if (fbUserId != null ? !fbUserId.equals(that.fbUserId) : that.fbUserId != null) {
+            if (!Objects.equals(fbUserId, that.fbUserId)) {
                 return false;
             }
-            return fbAccessToken != null ? fbAccessToken.equals(that.fbAccessToken)
-                    : that.fbAccessToken == null;
+            return Objects.equals(fbAccessToken, that.fbAccessToken);
         }
 
         @Override
@@ -104,11 +105,10 @@ public final class LoginRequest {
 
             GoogleLoginRequest that = (GoogleLoginRequest) object;
 
-            if (googleUserId != null ? !googleUserId.equals(that.googleUserId)
-                    : that.googleUserId != null) {
+            if (!Objects.equals(googleUserId, that.googleUserId)) {
                 return false;
             }
-            return idToken != null ? idToken.equals(that.idToken) : that.idToken == null;
+            return Objects.equals(idToken, that.idToken);
 
         }
 
@@ -154,10 +154,10 @@ public final class LoginRequest {
 
             ServerLoginRequest that = (ServerLoginRequest) object;
 
-            if (email != null ? !email.equals(that.email) : that.email != null) {
+            if (!Objects.equals(email, that.email)) {
                 return false;
             }
-            return password != null ? password.equals(that.password) : that.password == null;
+            return Objects.equals(password, that.password);
         }
 
         @Override

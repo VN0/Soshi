@@ -25,6 +25,6 @@ import javax.inject.Qualifier;
  */
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DatabaseInfo {
+public @interface PreferenceInfoScope {
 
 }

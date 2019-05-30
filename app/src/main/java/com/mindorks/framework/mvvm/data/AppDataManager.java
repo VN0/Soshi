@@ -17,9 +17,12 @@
 package com.mindorks.framework.mvvm.data;
 
 import android.content.Context;
+
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.google.gson.internal.$Gson$Types;
 import com.google.gson.reflect.TypeToken;
+import com.mindorks.framework.mvvm.data.firebase.UserHelper;
 import com.mindorks.framework.mvvm.data.local.db.DbHelper;
 import com.mindorks.framework.mvvm.data.local.prefs.PreferencesHelper;
 import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
@@ -35,6 +38,9 @@ import com.mindorks.framework.mvvm.data.remote.ApiHeader;
 import com.mindorks.framework.mvvm.data.remote.ApiHelper;
 import com.mindorks.framework.mvvm.utils.AppConstants;
 import com.mindorks.framework.mvvm.utils.CommonUtils;
+
+import org.jetbrains.annotations.Nullable;
+
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import java.lang.reflect.Type;
@@ -48,22 +54,25 @@ import javax.inject.Singleton;
 @Singleton
 public class AppDataManager implements DataManager {
 
-    private final ApiHelper mApiHelper;
-
     private final Context mContext;
 
     private final DbHelper mDbHelper;
 
-    private final Gson mGson;
-
     private final PreferencesHelper mPreferencesHelper;
 
+    private final ApiHelper mApiHelper;
+
+    private final UserHelper mUserHelper;
+
+    private final Gson mGson;
+
     @Inject
-    public AppDataManager(Context context, DbHelper dbHelper, PreferencesHelper preferencesHelper, ApiHelper apiHelper, Gson gson) {
+    AppDataManager(Context context, DbHelper dbHelper, PreferencesHelper preferencesHelper, ApiHelper apiHelper, UserHelper userHelper, Gson gson) {
         mContext = context;
         mDbHelper = dbHelper;
         mPreferencesHelper = preferencesHelper;
         mApiHelper = apiHelper;
+        mUserHelper = userHelper;
         mGson = gson;
     }
 
@@ -287,5 +296,11 @@ public class AppDataManager implements DataManager {
         setCurrentUserProfilePicUrl(profilePicPath);
 
         updateApiHeader(userId, accessToken);
+    }
+
+    @Nullable
+    @Override
+    public FirebaseUser getFirebaseUser() {
+        return mUserHelper.getFirebaseUser();
     }
 }

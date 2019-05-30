@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.app.Application;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.interceptors.HttpLoggingInterceptor;
-import com.mindorks.framework.mvvm.di.component.DaggerAppComponent;
 import com.mindorks.framework.mvvm.utils.AppLogger;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
@@ -48,10 +47,10 @@ public class MvvmApp extends Application implements HasActivityInjector {
     public void onCreate() {
         super.onCreate();
 
-        DaggerAppComponent.builder()
+        /*DaggerAppComponent.builder()
                 .application(this)
                 .build()
-                .inject(this);
+                .inject(this);*/
 
         AppLogger.init();
 

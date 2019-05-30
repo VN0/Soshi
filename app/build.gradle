@@ -15,8 +15,11 @@
  */
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 apply from: '../config/quality/quality.gradle'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: "kotlin-kapt"
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -113,8 +116,15 @@ dependencies {
     // view model
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$rootProject.lifecycleVersion"
+    compile "androidx.core:core-ktx:+"
+    compile "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:1.3.31"
 }
 
 configurations.all {
     resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+}
+repositories {
+    mavenCentral()
 }

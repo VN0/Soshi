@@ -98,8 +98,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
     @TargetApi(Build.VERSION_CODES.M)
     public boolean hasPermission(String permission) {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
-                checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
+        return checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
     }
 
     public void hideKeyboard() {
@@ -123,7 +122,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     }
 
     public void openActivityOnTokenExpire() {
-        startActivity(LoginActivity.newIntent(this));
+        startActivity(LoginActivity.Companion.newIntent(this));
         finish();
     }
 
@@ -133,9 +132,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
     @TargetApi(Build.VERSION_CODES.M)
     public void requestPermissionsSafely(String[] permissions, int requestCode) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(permissions, requestCode);
-        }
+        requestPermissions(permissions, requestCode);
     }
 
     public void showLoading() {

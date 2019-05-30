@@ -146,7 +146,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openLoginActivity() {
-        startActivity(LoginActivity.newIntent(this));
+        startActivity(LoginActivity.Companion.newIntent(this));
         finish();
     }
 

@@ -14,17 +14,18 @@
  *  limitations under the License
  */
 
-package com.mindorks.framework.mvvm.ui.login;
+package com.mindorks.framework.mvvm.di;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import javax.inject.Qualifier;
 
 /**
- * Created by amitshekhar on 08/07/17.
+ * Created by amitshekhar on 07/07/17.
  */
 
-public interface LoginNavigator {
+@Qualifier
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ApiInfoScope {
 
-    void handleError(Throwable throwable);
-
-    void login();
-
-    void openMainActivity();
 }

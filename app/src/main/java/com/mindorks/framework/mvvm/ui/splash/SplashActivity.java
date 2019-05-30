@@ -57,7 +57,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
 
     @Override
     public void openLoginActivity() {
-        Intent intent = LoginActivity.newIntent(SplashActivity.this);
+        Intent intent = LoginActivity.Companion.newIntent(SplashActivity.this);
         startActivity(intent);
         finish();
     }
