@@ -30,7 +30,7 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
         super(dataManager, schedulerProvider);
     }
 
-    public void startSeeding() {
+    void startSeeding() {
         getCompositeDisposable().add(getDataManager()
                 .seedDatabaseQuestions()
                 .flatMap(aBoolean -> getDataManager().seedDatabaseOptions())

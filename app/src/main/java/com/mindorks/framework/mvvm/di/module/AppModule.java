@@ -95,7 +95,7 @@ public class AppModule {
     @Provides
     @DatabaseInfoScope
     String provideDatabaseName() {
-        return AppConstants.DB_NAME;
+        return AppConstants.INSTANCE.getDB_NAME();
     }
 
     @Provides
@@ -113,7 +113,7 @@ public class AppModule {
     @Provides
     @PreferenceInfoScope
     String providePreferenceName() {
-        return AppConstants.PREF_NAME;
+        return AppConstants.INSTANCE.getPREF_NAME();
     }
 
     @Provides

@@ -47,7 +47,7 @@ public final class CommonUtils {
     }
 
     public static String getTimestamp() {
-        return new SimpleDateFormat(AppConstants.TIMESTAMP_FORMAT, Locale.US).format(new Date());
+        return new SimpleDateFormat(AppConstants.INSTANCE.getTIMESTAMP_FORMAT(), Locale.US).format(new Date());
     }
 
     public static boolean isEmailValid(String email) {

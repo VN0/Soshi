@@ -16,6 +16,7 @@
 
 package com.mindorks.framework.mvvm.ui.login
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -23,29 +24,26 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.IdpResponse
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.mindorks.framework.mvvm.BR
 import com.mindorks.framework.mvvm.ViewModelProviderFactory
-import com.mindorks.framework.mvvm.databinding.ActivityLoginBinding
-import com.mindorks.framework.mvvm.ui.base.BaseActivity
 import com.mindorks.framework.mvvm.ui.main.MainActivity
 import javax.inject.Inject
-import com.mindorks.framework.mvvm.R
+import com.mindorks.framework.mvvm.ui.base.BasicActivity
+import com.mindorks.framework.mvvm.utils.AppConstants
 
 
 /**
  * Created by amitshekhar on 08/07/17.
  */
 
-class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), LoginNavigator {
+class LoginActivity : BasicActivity<LoginViewModel>(), LoginNavigator {
 
     companion object {
 
         private val TAG = LoginActivity::class.simpleName
-
-        private const val LOGIN_RESULT_OK = 20
 
         fun newIntent(context: Context): Intent {
             return Intent(context, LoginActivity::class.java)
@@ -55,15 +53,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), Logi
     @Inject
     lateinit var factory: ViewModelProviderFactory
 
-    private var mLoginViewModel: LoginViewModel? = null
-    private var mActivityLoginBinding: ActivityLoginBinding? = null
+    private var loginViewModel: LoginViewModel? = null
 
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mActivityLoginBinding = viewDataBinding
-        mLoginViewModel!!.navigator = this
+        if (::factory.isInitialized) {
+            loginViewModel = getViewModel()
+            loginViewModel!!.navigator = this
+        }
 
         //firebase ui launch
         val providers = arrayListOf(
@@ -73,25 +72,40 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), Logi
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setAvailableProviders(providers)
-                        .build(), LOGIN_RESULT_OK)
+                        .build(), AppConstants.LOGIN_RESULT_OK)
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel.checkFirebaseLogin(auth.currentUser)
+        getViewModel().checkFirebaseLogin(auth.currentUser)
     }
 
-    override fun getBindingVariable(): Int {
-        return BR.viewModel
-    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_login
+        if (requestCode == AppConstants.LOGIN_RESULT_OK) {
+            val response = IdpResponse.fromResultIntent(data)
+
+            if (resultCode == Activity.RESULT_OK) {
+                // Successfully signed in
+                Log.d(TAG, "createUserWithEmail:success")
+                //val user = FirebaseAuth.getInstance().currentUser
+                //updateUI(user)
+                //login(response...)
+                // ...
+            } else {
+                // Sign in failed. If response is null the user canceled the
+                // sign-in flow using the back button. Otherwise check
+                // response.getError().getErrorCode() and handle the error.
+                Log.w(TAG, "createUserWithEmail:failure", response?.error)
+                handleError("createUserWithEmail:failure ${response?.error}")
+            }
+        }
     }
 
     override fun getViewModel(): LoginViewModel {
-        mLoginViewModel = ViewModelProviders.of(this, factory).get(LoginViewModel::class.java)
-        return mLoginViewModel as LoginViewModel
+        loginViewModel = ViewModelProviders.of(this, factory).get(LoginViewModel::class.java)
+        return loginViewModel as LoginViewModel
     }
 
     override fun handleError(throwable: Throwable) {
@@ -103,14 +117,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), Logi
     }
 
     override fun login() {
-        val email = mActivityLoginBinding!!.etEmail.text!!.toString()
+        /*val email = mActivityLoginBinding!!.etEmail.text!!.toString()
         val password = mActivityLoginBinding!!.etPassword.text!!.toString()
-        if (mLoginViewModel!!.isEmailAndPasswordValid(email, password)) {
+        if (loginViewModel!!.isEmailAndPasswordValid(email, password)) {
             hideKeyboard()
-            mLoginViewModel!!.login(email, password)
+            loginViewModel!!.login(email, password)
         } else {
             Toast.makeText(this, getString(R.string.invalid_email_password), Toast.LENGTH_SHORT).show()
-        }
+        }*/
     }
 
     override fun openMainActivity() {
@@ -120,7 +134,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), Logi
     }
 
     override fun createNewUserEmailPassword(email: String, password: String) {
-        auth.createUserWithEmailAndPassword(email, password)
+       /* auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, OnCompleteListener<AuthResult> { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
@@ -133,7 +147,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), Logi
                     }
 
                     // ...
-                })
+                })*/
     }
 
     override fun signInExistingUserEmailPassword(email: String, password: String) {
