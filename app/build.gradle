@@ -76,6 +76,7 @@ dependencies {
     implementation "androidx.room:room-rxjava2:$rootProject.roomDatabaseVersion"
     implementation 'com.google.firebase:firebase-auth:16.0.5'
     annotationProcessor "androidx.room:room-compiler:$rootProject.roomDatabaseVersion"
+    kapt "androidx.room:room-compiler:$rootProject.roomDatabaseVersion"
 
     // font
     implementation "uk.co.chrisjenx:calligraphy:$rootProject.calligraphyVersion"

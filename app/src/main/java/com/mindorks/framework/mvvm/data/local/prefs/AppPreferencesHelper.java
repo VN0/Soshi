@@ -19,7 +19,7 @@ package com.mindorks.framework.mvvm.data.local.prefs;
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.mindorks.framework.mvvm.data.DataManager;
-import com.mindorks.framework.mvvm.di.PreferenceInfoScope;
+import com.mindorks.framework.mvvm.di.scope.PreferenceInfoScope;
 import com.mindorks.framework.mvvm.utils.AppConstants;
 import javax.inject.Inject;
 
