@@ -35,9 +35,9 @@ import com.mindorks.framework.mvvm.data.local.prefs.PreferencesHelper;
 import com.mindorks.framework.mvvm.data.remote.ApiHeader;
 import com.mindorks.framework.mvvm.data.remote.ApiHelper;
 import com.mindorks.framework.mvvm.data.remote.AppApiHelper;
-import com.mindorks.framework.mvvm.di.ApiInfoScope;
-import com.mindorks.framework.mvvm.di.DatabaseInfoScope;
-import com.mindorks.framework.mvvm.di.PreferenceInfoScope;
+import com.mindorks.framework.mvvm.di.scope.ApiInfoScope;
+import com.mindorks.framework.mvvm.di.scope.DatabaseInfoScope;
+import com.mindorks.framework.mvvm.di.scope.PreferenceInfoScope;
 import com.mindorks.framework.mvvm.utils.AppConstants;
 import com.mindorks.framework.mvvm.utils.rx.AppSchedulerProvider;
 import com.mindorks.framework.mvvm.utils.rx.SchedulerProvider;
@@ -95,7 +95,7 @@ public class AppModule {
     @Provides
     @DatabaseInfoScope
     String provideDatabaseName() {
-        return AppConstants.DB_NAME;
+        return AppConstants.INSTANCE.getDB_NAME();
     }
 
     @Provides
@@ -113,7 +113,7 @@ public class AppModule {
     @Provides
     @PreferenceInfoScope
     String providePreferenceName() {
-        return AppConstants.PREF_NAME;
+        return AppConstants.INSTANCE.getPREF_NAME();
     }
 
     @Provides

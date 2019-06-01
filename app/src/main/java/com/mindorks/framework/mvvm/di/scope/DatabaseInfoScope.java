@@ -14,7 +14,7 @@
  *  limitations under the License
  */
 
-package com.mindorks.framework.mvvm.di;
+package com.mindorks.framework.mvvm.di.scope;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -25,6 +25,6 @@ import javax.inject.Qualifier;
  */
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PreferenceInfoScope {
+public @interface DatabaseInfoScope {
 
 }

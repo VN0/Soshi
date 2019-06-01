@@ -19,7 +19,7 @@ package com.mindorks.framework.mvvm.data.local.prefs;
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.mindorks.framework.mvvm.data.DataManager;
-import com.mindorks.framework.mvvm.di.PreferenceInfoScope;
+import com.mindorks.framework.mvvm.di.scope.PreferenceInfoScope;
 import com.mindorks.framework.mvvm.utils.AppConstants;
 import javax.inject.Inject;
 
@@ -70,13 +70,13 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public Long getCurrentUserId() {
-        long userId = mPrefs.getLong(PREF_KEY_CURRENT_USER_ID, AppConstants.NULL_INDEX);
-        return userId == AppConstants.NULL_INDEX ? null : userId;
+        long userId = mPrefs.getLong(PREF_KEY_CURRENT_USER_ID, AppConstants.INSTANCE.getNULL_INDEX());
+        return userId == AppConstants.INSTANCE.getNULL_INDEX() ? null : userId;
     }
 
     @Override
     public void setCurrentUserId(Long userId) {
-        long id = userId == null ? AppConstants.NULL_INDEX : userId;
+        long id = userId == null ? AppConstants.INSTANCE.getNULL_INDEX() : userId;
         mPrefs.edit().putLong(PREF_KEY_CURRENT_USER_ID, id).apply();
     }
 

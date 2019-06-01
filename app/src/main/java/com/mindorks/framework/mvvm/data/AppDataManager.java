@@ -241,7 +241,7 @@ public class AppDataManager implements DataManager {
                     if (isEmpty) {
                         Type type = new TypeToken<List<Option>>() {
                         }.getType();
-                        List<Option> optionList = mGson.fromJson(CommonUtils.loadJSONFromAsset(mContext, AppConstants.SEED_DATABASE_OPTIONS), type);
+                        List<Option> optionList = mGson.fromJson(CommonUtils.loadJSONFromAsset(mContext, AppConstants.INSTANCE.getSEED_DATABASE_OPTIONS()), type);
                         return saveOptionList(optionList);
                     }
                     return Observable.just(false);
@@ -255,7 +255,7 @@ public class AppDataManager implements DataManager {
                     if (isEmpty) {
                         Type type = $Gson$Types.newParameterizedTypeWithOwner(null, List.class, Question.class);
                         List<Question> questionList = mGson
-                                .fromJson(CommonUtils.loadJSONFromAsset(mContext, AppConstants.SEED_DATABASE_QUESTIONS), type);
+                                .fromJson(CommonUtils.loadJSONFromAsset(mContext, AppConstants.INSTANCE.getSEED_DATABASE_QUESTIONS()), type);
                         return saveQuestionList(questionList);
                     }
                     return Observable.just(false);
