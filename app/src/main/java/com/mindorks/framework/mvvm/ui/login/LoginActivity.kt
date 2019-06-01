@@ -22,6 +22,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
+import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -44,13 +45,15 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), Logi
 
         private val TAG = LoginActivity::class.simpleName
 
+        private const val LOGIN_RESULT_OK = 20
+
         fun newIntent(context: Context): Intent {
             return Intent(context, LoginActivity::class.java)
         }
     }
 
     @Inject
-    internal var factory: ViewModelProviderFactory? = null
+    lateinit var factory: ViewModelProviderFactory
 
     private var mLoginViewModel: LoginViewModel? = null
     private var mActivityLoginBinding: ActivityLoginBinding? = null
@@ -61,6 +64,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), Logi
         super.onCreate(savedInstanceState)
         mActivityLoginBinding = viewDataBinding
         mLoginViewModel!!.navigator = this
+
+        //firebase ui launch
+        val providers = arrayListOf(
+                AuthUI.IdpConfig.EmailBuilder().build(),
+                AuthUI.IdpConfig.GoogleBuilder().build())
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(), LOGIN_RESULT_OK)
     }
 
     override fun onStart() {

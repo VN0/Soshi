@@ -14,32 +14,32 @@
  *  limitations under the License
  */
 
-package com.mindorks.framework.mvvm.di.component;
+package com.mindorks.framework.mvvm.di.component
 
-import android.app.Application;
-import com.mindorks.framework.mvvm.MvvmApp;
-import com.mindorks.framework.mvvm.di.builder.ActivityBuilder;
-import com.mindorks.framework.mvvm.di.module.AppModule;
-import dagger.BindsInstance;
-import dagger.Component;
-import dagger.android.AndroidInjectionModule;
-import javax.inject.Singleton;
+import android.app.Application
+import com.mindorks.framework.mvvm.MvvmApp
+import com.mindorks.framework.mvvm.di.builder.ActivityBuilder
+import com.mindorks.framework.mvvm.di.module.AppModule
+import dagger.BindsInstance
+import dagger.Component
+import dagger.android.AndroidInjectionModule
+import javax.inject.Singleton
 
 /**
  * Created by amitshekhar on 07/07/17.
  */
 @Singleton
-@Component(modules = {AndroidInjectionModule.class, AppModule.class, ActivityBuilder.class})
-public interface AppComponent {
-
-    void inject(MvvmApp app);
+@Component(modules = [AndroidInjectionModule::class, AppModule::class, ActivityBuilder::class])
+interface AppComponent {
 
     @Component.Builder
     interface Builder {
 
         @BindsInstance
-        Builder application(Application application);
+        fun application(application: Application): Builder
 
-        AppComponent build();
+        fun build(): AppComponent
     }
+
+    fun inject(app: MvvmApp)
 }
